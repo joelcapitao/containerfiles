@@ -1,0 +1,75 @@
+FROM quay.io/fedora/fedora:43
+
+RUN <<EORUN
+set -euxo pipefail
+sed -i "s/enabled=1/enabled=0/" "/etc/yum.repos.d/fedora-cisco-openh264.repo"
+dnf -y update
+
+dnf -y install \
+    bind-utils \
+    borgbackup \
+    fd-find \
+    fzf \
+    gh \
+    git-delta \
+    inotify-tools \
+    jq \
+    just \
+    make \
+    mkpasswd \
+    ripgrep \
+    skopeo \
+    vim \
+    yq
+
+# Dev stuff
+dnf -y install \
+    ShellCheck \
+    black \
+    clang-format \
+    g++ \
+    gcc \
+    krb5-devel \
+    openssl-devel \
+    pylint \
+    python3-pip \
+    yamllint
+
+# Packaging stuff
+dnf -y install \
+    createrepo_c \
+    fedpkg \
+    mock \
+    rpmdevtools
+
+dnf -y install \
+    ImageMagick \
+    convert \
+    poppler-utils \
+    slurp \
+    zathura \
+    zathura-pdf-poppler
+
+# Remove unused setuid root program
+dnf -y remove mlocate
+
+dnf clean all
+ln -snf /run/host/run/libvirt /run/libvirt
+EORUN
+
+
+# Setup host-runner script and symlinks
+# From https://github.com/travier/quay-containerfiles/blob/main/toolbox/Containerfile
+COPY host-runner /usr/local/bin/host-runner
+RUN <<EORUN
+set -euxo pipefail
+bins=(
+    "flatpak"
+    "podman"
+    "rpm-ostree"
+    "systemctl"
+);
+for f in "${bins[@]}"; do
+    ln -s host-runner /usr/local/bin/$f;
+done
+EORUN
