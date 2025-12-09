@@ -23,6 +23,7 @@ dnf -y install \
     ripgrep \
     skopeo \
     nvim \
+    tmux \
     yq
 
 # Dev stuff
