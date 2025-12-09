@@ -17,9 +17,10 @@ dnf -y install \
     just \
     make \
     mkpasswd \
+    pinentry-tty \
     ripgrep \
     skopeo \
-    vim \
+    nvim \
     yq
 
 # Dev stuff
