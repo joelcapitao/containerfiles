@@ -1,3 +1,5 @@
+FROM ghcr.io/sigstore/cosign/cosign:latest as cosign-bin
+
 FROM quay.io/fedora/fedora:43
 
 RUN <<EORUN
@@ -58,6 +60,7 @@ dnf clean all
 ln -snf /run/host/run/libvirt /run/libvirt
 EORUN
 
+COPY --from=cosign-bin /ko-app/cosign /usr/local/bin/cosign
 
 # Setup host-runner script and symlinks
 # From https://github.com/travier/quay-containerfiles/blob/main/toolbox/Containerfile
