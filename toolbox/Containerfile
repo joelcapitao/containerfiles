@@ -63,6 +63,7 @@ https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
 """
 tarball="/tmp/tarball.tar.gz"
 tmp_dir="/tmp/bin"
+mkdir -p $tmp_dir
 for url in $URLS; do
     curl -L $url -o $tarball && tar -xvf $tarball --no-same-owner -C $tmp_dir && rm -f $tarball
 done
