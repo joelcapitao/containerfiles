@@ -1,4 +1,5 @@
-FROM ghcr.io/sigstore/cosign/cosign:latest as cosign-bin
+FROM ghcr.io/sigstore/cosign/cosign:v3.0.2 as cosign-bin
+FROM ghcr.io/oras-project/oras:v1.3.0 as oras-bin
 
 FROM quay.io/fedora/fedora:43
 
@@ -61,7 +62,9 @@ dnf clean all
 ln -snf /run/host/run/libvirt /run/libvirt
 EORUN
 
+# container tooling that are not shipped with RPM in Fedora or not up-to-date
 COPY --from=cosign-bin /ko-app/cosign /usr/local/bin/cosign
+COPY --from=oras-bin /bin/oras /usr/local/bin/oras
 
 # Setup host-runner script and symlinks
 # From https://github.com/travier/quay-containerfiles/blob/main/toolbox/Containerfile
