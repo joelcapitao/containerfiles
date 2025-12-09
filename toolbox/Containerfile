@@ -55,6 +55,18 @@ dnf -y install \
     zathura \
     zathura-pdf-poppler
 
+# Openshift tools not shipped in Fedora repo, nor a container image
+URLS="""
+https://mirror.openshift.com/pub/openshift-v4/clients/pipelines/latest/tkn-linux-amd64.tar.gz
+https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
+"""
+tarball="/tmp/tarball.tar.gz"
+tmp_dir="/tmp/bin"
+for url in $URLS; do
+    curl -L $url -o $tarball && tar -xvf $tarball --no-same-owner -C $tmp_dir && rm -f $tarball
+done
+mv ${tmp_dir}/{oc,kubectl,opc,tkn,tkn-pac} /usr/local/bin && rm -rf $tmp_dir
+
 # Remove unused setuid root program
 dnf -y remove mlocate
 
@@ -62,7 +74,9 @@ dnf clean all
 ln -snf /run/host/run/libvirt /run/libvirt
 EORUN
 
-# container tooling that are not shipped with RPM in Fedora or not up-to-date
+# Tools that are not shipped in Fedora or not up-to-date
+# This list needs to be revisited frequently as we want to privilege software rebuilt
+# in Fedora build system for more guaranty.
 COPY --from=cosign-bin /ko-app/cosign /usr/local/bin/cosign
 COPY --from=oras-bin /bin/oras /usr/local/bin/oras
 
