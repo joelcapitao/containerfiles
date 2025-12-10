@@ -12,6 +12,7 @@ dnf -y install \
     bind-utils \
     borgbackup \
     fd-find \
+    flatpak-spawn \
     fzf \
     gh \
     git-delta \
