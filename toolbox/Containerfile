@@ -36,6 +36,7 @@ dnf -y install \
     g++ \
     gcc \
     golang \
+    gdisk \
     krb5-devel \
     kustomize \
     openssl-devel \
