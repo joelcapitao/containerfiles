@@ -39,6 +39,7 @@ dnf -y install \
     gdisk \
     krb5-devel \
     kustomize \
+    dosfstools \
     openssl-devel \
     pylint \
     python3-pip \
