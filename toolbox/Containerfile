@@ -62,6 +62,11 @@ dnf -y install \
     zathura \
     zathura-pdf-poppler
 
+# To automount storage devices (support protected LUKS devices).
+dnf -y install \
+    udiskie \
+    zenity
+
 # Openshift tools not shipped in Fedora repo, nor a container image
 URLS="""
 https://mirror.openshift.com/pub/openshift-v4/clients/pipelines/latest/tkn-linux-amd64.tar.gz
