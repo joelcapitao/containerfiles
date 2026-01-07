@@ -34,15 +34,19 @@ dnf -y install \
 dnf -y install \
     ShellCheck \
     black \
+    cargo \
     clang-format \
+    dosfstools \
     g++ \
     gcc \
+    glib2-devel \
     golang \
     gdisk \
     krb5-devel \
     kustomize \
-    dosfstools \
+    libzstd-devel \
     openssl-devel \
+    ostree-devel \
     pylint \
     python3-pip \
     yamllint
