@@ -41,10 +41,12 @@ dnf -y install \
     gcc \
     glib2-devel \
     golang \
+    golang-github-cpuguy83-md2man \
     gdisk \
     krb5-devel \
     kustomize \
     libzstd-devel \
+    openssl \
     openssl-devel \
     ostree-devel \
     pylint \
