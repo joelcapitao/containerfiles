@@ -10,13 +10,13 @@ on:
       - main
     paths:
       - 'toolbox/**'
-      - '.github/workflows/toolbox.yml'
+      - '.github/workflows/toolbox.yaml'
   push:
     branches:
       - main
     paths:
       - 'toolbox/**'
-      - '.github/workflows/toolbox.yml'
+      - '.github/workflows/toolbox.yaml'
   schedule:
     - cron:  '0 0 * * MON'
   workflow_dispatch:

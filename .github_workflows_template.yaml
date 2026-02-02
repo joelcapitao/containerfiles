@@ -10,13 +10,13 @@ on:
       - main
     paths:
       - '%%NAME%%/**'
-      - '.github/workflows/%%NAME%%.yml'
+      - '.github/workflows/%%NAME%%.yaml'
   push:
     branches:
       - main
     paths:
       - '%%NAME%%/**'
-      - '.github/workflows/%%NAME%%.yml'
+      - '.github/workflows/%%NAME%%.yaml'
   schedule:
     - cron:  '0 0 * * MON'
   workflow_dispatch:
