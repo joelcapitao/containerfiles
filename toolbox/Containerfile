@@ -3,99 +3,12 @@ FROM ghcr.io/oras-project/oras:v1.3.0 as oras-bin
 
 FROM quay.io/fedora/fedora:43
 
-RUN <<EORUN
-set -euxo pipefail
-sed -i "s/enabled=1/enabled=0/" "/etc/yum.repos.d/fedora-cisco-openh264.repo"
-dnf -y update
+# Install all packages via shared script
+COPY install-packages.sh /tmp/
+RUN chmod +x /tmp/install-packages.sh && /tmp/install-packages.sh && rm /tmp/install-packages.sh
 
-dnf -y install \
-    NetworkManager \
-    bind-utils \
-    borgbackup \
-    fd-find \
-    flatpak-spawn \
-    fzf \
-    gh \
-    git-delta \
-    hostname \
-    inotify-tools \
-    jq \
-    just \
-    make \
-    mkpasswd \
-    pinentry-tty \
-    ripgrep \
-    skopeo \
-    nvim \
-    tmux \
-    vifm \
-    yq
-
-# Dev stuff
-dnf -y install \
-    ShellCheck \
-    black \
-    cargo \
-    clang-format \
-    clippy \
-    dosfstools \
-    g++ \
-    gcc \
-    glib2-devel \
-    golang \
-    golang-github-cpuguy83-md2man \
-    gdisk \
-    krb5-devel \
-    kustomize \
-    libzstd-devel \
-    openssl \
-    openssl-devel \
-    ostree-devel \
-    pylint \
-    python3-pip \
-    python3-tox \
-    rustfmt \
-    yamllint
-
-# Packaging stuff
-dnf -y install \
-    createrepo_c \
-    fedpkg \
-    mock \
-    rpmdevtools
-
-dnf -y install \
-    ImageMagick \
-    convert \
-    poppler-utils \
-    slurp \
-    zathura \
-    zathura-pdf-poppler
-
-# To automount storage devices (support protected LUKS devices).
-dnf -y install \
-    udiskie \
-    zenity
-
-# Openshift tools not shipped in Fedora repo, nor a container image
-URLS="""
-https://mirror.openshift.com/pub/openshift-v4/clients/pipelines/latest/tkn-linux-amd64.tar.gz
-https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz
-"""
-tarball="/tmp/tarball.tar.gz"
-tmp_dir="/tmp/bin"
-mkdir -p $tmp_dir
-for url in $URLS; do
-    curl -L $url -o $tarball && tar -xvf $tarball --no-same-owner -C $tmp_dir && rm -f $tarball
-done
-mv ${tmp_dir}/{oc,kubectl,opc,tkn,tkn-pac} /usr/local/bin && rm -rf $tmp_dir
-
-# Remove unused setuid root program
-dnf -y remove mlocate
-
-dnf clean all
-ln -snf /run/host/run/libvirt /run/libvirt
-EORUN
+# Create libvirt symlink for host access
+RUN ln -snf /run/host/run/libvirt /run/libvirt
 
 # Tools that are not shipped in Fedora or not up-to-date
 # This list needs to be revisited frequently as we want to privilege software rebuilt
