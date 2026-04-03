@@ -65,6 +65,7 @@ dnf -y install \
     openssl-devel \
     ostree-devel \
     pylint \
+    python3-openstackclient \
     python3-pip \
     python3-tox \
     rustfmt \
