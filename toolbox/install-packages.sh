@@ -29,6 +29,7 @@ dnf -y install \
     gettext-envsubst \
     gh \
     git \
+    git-credential-libsecret \
     git-delta \
     hostname \
     inotify-tools \
