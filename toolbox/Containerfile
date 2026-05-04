@@ -1,7 +1,7 @@
-FROM ghcr.io/sigstore/cosign/cosign:v3.0.2 as cosign-bin
-FROM ghcr.io/oras-project/oras:v1.3.0 as oras-bin
+FROM ghcr.io/sigstore/cosign/cosign:v3.0.6 as cosign-bin
+FROM ghcr.io/oras-project/oras:v1.3.2 as oras-bin
 
-FROM quay.io/fedora/fedora:43
+FROM quay.io/fedora/fedora:44
 
 # Install all packages via shared script
 COPY install-packages.sh /tmp/

@@ -43,6 +43,7 @@ dnf -y install \
     nvim \
     tmux \
     vifm \
+    vimdiff \
     yq
 
 # Dev tools
