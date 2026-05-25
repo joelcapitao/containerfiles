@@ -21,6 +21,7 @@ dnf -y update
 # Base tools
 dnf -y install \
     NetworkManager \
+    age \
     bind-utils \
     borgbackup \
     fd-find \
