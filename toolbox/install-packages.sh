@@ -40,6 +40,7 @@ dnf -y install \
     mkpasswd \
     pinentry-tty \
     ripgrep \
+    rsync \
     skopeo \
     nvim \
     tmux \
