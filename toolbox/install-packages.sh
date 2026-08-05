@@ -99,7 +99,7 @@ dnf -y install \
 # OpenShift tools (not shipped in Fedora repos)
 URLS=(
     "https://mirror.openshift.com/pub/openshift-v4/clients/pipelines/latest/tkn-linux-amd64.tar.gz"
-    "https://mirror.openshift.com/pub/openshift-v4/clients/oc/latest/linux/oc.tar.gz"
+    "https://mirror.openshift.com/pub/openshift-v5/clients/ocp/latest/openshift-client-linux.tar.gz"
 )
 tarball="/tmp/tarball.tar.gz"
 tmp_dir="/tmp/openshift-bin"
